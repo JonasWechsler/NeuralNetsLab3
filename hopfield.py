@@ -28,9 +28,23 @@ def recall_until_stable(W, x, max_iterations=1000):
     return -1
 
 def test_stable(W, x):
-    result = hopfield.recall(W, x)
+    result = recall(W, x)
     if (result == x).all():
         print("Pass")
     else:
         print("Fail", x, result)
+
+def test_expected(W, x, exp):
+    result = recall_until_stable(W, x)
+    if (result == exp).all():
+        print("Pass")
+    else:
+        print("Fail", result, exp)
+
+def energy(W, x):
+    N = len(W)
+    E_i = lambda i: sum(W[i][j]*x[j]*x[i] for j in range(N))
+    return -1*sum(E_i(i) for i in range(N))
+
+
 

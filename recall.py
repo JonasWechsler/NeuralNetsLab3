@@ -7,4 +7,4 @@ if __name__ == "__main__":
     X = [x1, x2, x3]
     W = hopfield.weights(X)
     for x in X:
-        hopefield.test_stable(W, x)
+        hopfield.test_stable(W, x)
