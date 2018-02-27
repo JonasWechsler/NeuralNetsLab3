@@ -18,18 +18,19 @@ def recall(W, in_x):
     out_x = [x_i(i) for i in range(N)]
     return np.array(out_x)
 
-if __name__ == "__main__":
-    def test_stable(W, x):
-        result = recall(W, x)
-        if (result == x).all():
-            print("Pass")
-        else:
-            print("Fail", x, result)
 
-    x1 = [-1, -1,  1, -1,  1, -1, -1,  1]
-    x2 = [-1, -1, -1, -1, -1,  1, -1, -1]
-    x3 = [-1,  1,  1, -1, -1,  1, -1,  1]
-    X = [x1, x2, x3]
-    W = weights(X)
-    for x in X:
-        test_stable(W, x)
+def recall_until_stable(W, x, max_iterations=1000):
+    for _ in range(max_iterations):
+        new_x = recall(W, x)
+        if (new_x == x).all():
+            return new_x
+        x = new_x
+    return -1
+
+def test_stable(W, x):
+    result = hopfield.recall(W, x)
+    if (result == x).all():
+        print("Pass")
+    else:
+        print("Fail", x, result)
+
