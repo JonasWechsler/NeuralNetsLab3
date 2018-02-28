@@ -23,9 +23,9 @@ def get_attractors():
             attractors[stringified] = 1
         else:
             attractors[stringified] += 1
-    return attractors_set
+    return attractors, attractors_set
 
 if __name__ == "__main__":
-    attractors = get_attractors()
+    attractors, _ = get_attractors()
     print("\n".join(["{}:{}".format(key, attractors[key]) for key in attractors]))
     print("There are {} attractors".format(len(attractors)))

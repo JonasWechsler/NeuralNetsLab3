@@ -3,7 +3,7 @@ import attractors
 
 def energy_at_attractors():
 	W = attractors.get_weights()
-	A = attractors.get_attractors()
+	_, A = attractors.get_attractors()
 	energy = [hopfield.energy(W, x) for x in A]
 	for a, b in zip(energy, A):
 		print(a, b)

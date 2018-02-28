@@ -18,6 +18,19 @@ def recall(W, in_x):
     out_x = [x_i(i) for i in range(N)]
     return np.array(out_x)
 
+def recall_sequentially(W, x, max_iterations=5000, snapshot=500):
+    in_x = list(x)
+    N = len(in_x)
+    x_i = lambda i: sign(sum(W[i][j]*in_x[j] for j in range(N)))
+    out_array = []
+    for _ in range(max_iterations):
+        choice = np.random.randint(0, len(in_x))
+        in_x[choice] = x_i(choice)
+        if not _ % snapshot:
+            out_array.append(list(in_x))
+    return out_array
+
+
 
 def recall_until_stable(W, x, max_iterations=1000):
     for _ in range(max_iterations):
