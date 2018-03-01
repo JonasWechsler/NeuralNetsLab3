@@ -1,10 +1,13 @@
 import numpy as np
 
-def weights(X):
+def weights(X, remove_self_conn=False):
     N = len(X[0])
     P = len(X)
     W_ij = lambda i, j: (1/N)*sum(X[m][i] * X[m][j] for m in range(P))
-    W = [[W_ij(i, j) for i in range(N)] for j in range(N)]
+    if remove_self_conn:
+        W = [[W_ij(i, j) if i != j else 0 for i in range(N)] for j in range(N)]
+    else:
+        W = [[W_ij(i, j) for i in range(N)] for j in range(N)]
     return np.array(W)
 
 def sign(x):
